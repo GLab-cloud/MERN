@@ -1,0 +1,6 @@
+/FE/node_modules
+/BE
+**/node_modules
+**/src
+**/*.env
+# /MongoDb/*.env
