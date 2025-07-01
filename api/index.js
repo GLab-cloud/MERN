@@ -1,6 +1,10 @@
-import express from 'express';
+import express from 'express'
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+dotenv.config()
+mongoose.connect(process.env.MONGO)
 const app = express()
-app.listen(5000, () => {
-    console.log('server is running on port 5000')
-}
-);
+const port = 5000
+app.listen(port, () => {
+  console.log('Website served on http://localhost:' + port)
+})
