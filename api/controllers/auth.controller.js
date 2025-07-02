@@ -1,5 +1,6 @@
 import User from '../models/user.model.js'
 import bcryptjs from 'bcryptjs'
+import { errorHandler } from '../utils/error.js'
 export const signup = async (req, res, next) => {
     //console.log(req.body)
     const { username, email, password } = req.body
@@ -11,6 +12,7 @@ export const signup = async (req, res, next) => {
     }
     catch (error) {
         //res.status(500).json(error.message)
-        next(error)
+        //next(error)
+        next(errorHandler(550, 'error from the error handler function'))
     }
 }
