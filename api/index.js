@@ -10,7 +10,7 @@ const port = 5000
 app.listen(port, () => {
   console.log('Website served on http://localhost:' + port)
 })
-mongoose.connect(process.env.MONGO).then(() => {
+mongoose.connect(process.env.MONGO_DB).then(() => {
   console.log('Connected to Mongo DB')
 }).catch((err) => { console.log(err) })
 
