@@ -3,9 +3,16 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRouter from './routes/user.router.js'
 import authRouter from './routes/auth.route.js'
+import cors from 'cors'
 dotenv.config()
 const app = express()
 app.use(express.json())
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3000'],
+  }),
+)
 const port = 5000
 app.listen(port, () => {
   console.log('Website served on http://localhost:' + port)
