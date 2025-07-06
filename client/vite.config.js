@@ -1,7 +1,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import tailwindcss from "@tailwindcss/vite";
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        secure: false,
+      },
+    },
+    allowedHosts: ["localhost", "4k98ww-5173.csb.app"],
+  },
+
+  plugins: [react()],
 });

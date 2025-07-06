@@ -14,13 +14,13 @@ app.use(
   })
 );
 const port = 5000;
-const MONGO_DB =
-  "mongodb+srv://tintin:DT4tgJjzkifrCrND@cluster0.5usukl0.mongodb.net/RealEstate?retryWrites=true&w=majority";
 app.listen(port, () => {
   console.log("Website served on http://localhost:" + port);
 });
 mongoose
-  .connect(MONGO_DB)
+  .connect(
+    "mongodb+srv://tintin:DT4tgJjzkifrCrND@cluster0.5usukl0.mongodb.net/RealEstate?retryWrites=true&w=majority"
+  )
   .then(() => {
     console.log("Connected to Mongo DB");
   })
