@@ -1,14 +1,14 @@
-import React from 'react'
-import { FaSearch } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <header className="bg-slate-200 shadow-md">
-      <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
-        <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
+      <div className="flex justify-between items-center max-w-6xl mx-auto">
+        <div className="font-bold text-sm sm:text-xl flex flex-wrap">
           <h3 className="text-slate-800 logo-color">GLab&nbsp;</h3>
-          <span className="text-slate-700">Real Estate Marketplace</span>
-        </h1>
+          <h3 className="text-slate-700">Real Estate Marketplace</h3>
+        </div>
         <form className="bg-slate-100 p-3 rounded-lg flex items-center">
           <input
             type="text"
@@ -32,5 +32,5 @@ export default function Header() {
         </ul>
       </div>
     </header>
-  )
+  );
 }
