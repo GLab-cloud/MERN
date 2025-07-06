@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:5173", "https://4k98ww-5173.csb.app"],
+    origin: ["http://localhost:5173", "https://w4qcgx-5173.csb.app"],
   })
 );
 const port = 5000;
@@ -18,9 +18,7 @@ app.listen(port, () => {
   console.log("Website served on http://localhost:" + port);
 });
 mongoose
-  .connect(
-    "mongodb+srv://tintin:DT4tgJjzkifrCrND@cluster0.5usukl0.mongodb.net/RealEstate?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Connected to Mongo DB");
   })
