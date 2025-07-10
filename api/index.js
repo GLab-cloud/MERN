@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:5173", "https://w4qcgx-5173.csb.app"],
+    origin: ["https://w4qcgx-5173.csb.app", "https://c4hyg9-5173.csb.app"],
   })
 );
 const port = 5000;
