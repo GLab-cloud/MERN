@@ -27,6 +27,7 @@ export default function OAuth() {
       const data = res.json();
       dispatch(signInSuccess(data));
       navigate("/");
+      console.log(data);
     } catch (error) {
       console.log("could not connect Google account", error);
     }

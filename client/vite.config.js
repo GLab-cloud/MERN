@@ -9,7 +9,12 @@ export default defineConfig({
     //     secure: false,
     //   },
     // },
-    allowedHosts: ["localhost", "4k98ww-5173.csb.app", "w4qcgx-5173.csb.app"],
+    allowedHosts: [
+      "localhost",
+      "4k98ww-5173.csb.app",
+      "w4qcgx-5173.csb.app",
+      "vvkg5d-5173.csb.app",
+    ],
   },
 
   plugins: [react()],
