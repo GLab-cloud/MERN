@@ -31,9 +31,9 @@ export const signin = async (req, res, next) => {
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
     const { password: pass, ...rest } = validUser._doc;
     res
-      .cookie("access_token", token, { httpOnly: true }) //expires
+      .cookie("access_token", token, { httpOnly: true }) //expires - security for this cookie name access_token in Backend NodeJS
       .status(200)
-      .json(rest);
+      .json(rest); //
   } catch (error) {
     next(error);
   }
