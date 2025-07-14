@@ -73,18 +73,45 @@ export default function Profile() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     console.log("formData", formData);
+  //     console.log("user_id", currentUser._id);
+
+  //     dispatch(updateUserStart());
+  //     const res = await fetch(
+  //       `https://vvkg5d-5000.csb.app/api/user/update/${currentUser._id}`,
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify(formData),
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     if (data.success === false) {
+  //       dispatch(updateUserFailure(data.message));
+  //       return;
+  //     }
+  //     dispatch(updateUserSuccess(data));
+  //   } catch (error) {
+  //     dispatch(updateUserFailure(error.message));
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       console.log("formData", formData);
       console.log("user_id", currentUser._id);
-
       dispatch(updateUserStart());
       const res = await fetch(
-        `https://vvkg5d-5000.csb.app/api/user/update/${currentUser._id}`,
+        `https://localhost:5000/api/user/update/${currentUser._id}`,
         {
+          credentials: "include",
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(formData),
         }
       );
@@ -93,11 +120,14 @@ export default function Profile() {
         dispatch(updateUserFailure(data.message));
         return;
       }
+
       dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
   };
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -113,7 +143,7 @@ export default function Profile() {
         />
         <img
           onClick={() => fileRef.current.click()}
-          src={formData?.avatar || currentUser.avatar}
+          src={formData.avatar || currentUser.avatar}
           alt="Profile"
           className="rounded-full w-25 h-25 object-cover cursor-pointer self-center mt-2"
         />
