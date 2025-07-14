@@ -29,7 +29,8 @@ export default function SignIn() {
       dispatch(signInStart());
       const res = await fetch("http://localhost:5000/api/auth/signin", {
         credentials: "include",
-        // pass cookie through signin API: res.cookie("access_token", token, { httpOnly: true }) //expires  -> to update profile ->backend nodejs
+        // pass cookie through signin API: res.cookie("access_token", token, { httpOnly: true }) //expires
+        //-> to update profile ->backend nodejs
         method: "POST",
         headers: {
           "Content-Type": "application/json",
