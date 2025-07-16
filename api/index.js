@@ -15,6 +15,7 @@ app.use(
       "http://localhost:5173",
       "https://w4qcgx-5173.csb.app",
       "https://vvkg5d-5173.csb.app",
+      "https://vvkg5d-5174.csb.app",
     ],
   })
 );

@@ -1,5 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { useRef, useState, useEffect } from "react";
 import {
   getStorage,
@@ -22,13 +24,15 @@ import {
 import { useDispatch } from "react-redux";
 
 export default function Profile() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setfileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   console.log(filePerc);
   console.log(file);
@@ -159,12 +163,15 @@ export default function Profile() {
       dispatch(signOutUserStart());
       const res = await fetch("https://localhost:5000/api/auth/signout", {
         credentials: "include",
+        method: "POST",
       });
       const data = await res.json(); //
       if (data.success === false) {
         dispatch(signOutUserFailure(data.message));
       }
       dispatch(signOutUserSuccess(data));
+      navigate("/");
+      console.log("currentUser=", currentUser.user);
     } catch (error) {
       dispatch(signOutUserFailure(error.message));
     }
