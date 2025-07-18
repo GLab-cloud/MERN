@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
-  console.log("currentUser=", currentUser.user);
+  //console.log("currentUser=", currentUser.user);
 
   return (
     <header className="bg-slate-200 shadow-md">
@@ -28,7 +28,7 @@ export default function Header() {
           <Link to="/about">
             <li className="sm:inline text-slate-700 hover:underline">About</li>
           </Link>
-          <Link to="/profile">
+          <Link to={"/profile"}>
             {currentUser ? (
               <img
                 className="rounded-full h-7 w-7 object-cover"

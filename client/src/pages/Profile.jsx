@@ -25,6 +25,7 @@ import { useDispatch } from "react-redux";
 
 export default function Profile() {
   const { currentUser, loading, error } = useSelector((state) => state.user);
+
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
@@ -169,7 +170,7 @@ export default function Profile() {
       if (data.success === false) {
         dispatch(signOutUserFailure(data.message));
       }
-      dispatch(signOutUserSuccess(data));
+      //dispatch(signOutUserSuccess(data));
       navigate("/");
       console.log("currentUser=", currentUser.user);
     } catch (error) {
