@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useRef, useState, useEffect } from "react";
 import {
@@ -241,6 +241,12 @@ export default function Profile() {
           {" "}
           Update{" "}
         </button>
+        <Link
+          className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-90"
+          to={"/create-Listing"}
+        >
+          Create Listing
+        </Link>
       </form>
       <div className=" flex justify-between mt-5">
         <span
