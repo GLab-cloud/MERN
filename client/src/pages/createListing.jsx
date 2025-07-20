@@ -9,21 +9,38 @@ import { app } from "../../firebase.js";
 export default function CreateListing() {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({ imageUrls: [] });
+  const [imageUploadError, setImageUploadError] = useState(false);
+
+  const [uploading, setUploading] = useState(false);
   console.log(files);
+  console.log(formData);
+
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length < 7) {
+      setUploading(true);
+      setImageUploadError(false);
       const promises = [];
       for (let i = 0; i < files.length; i++) {
         promises.push(storeImage(files[i]));
       }
-      Promise.all(promises).then((urls) => {
-        setFormData({
-          ...formData,
-          imageUrls: formData.imageUrls.concat(urls),
+      Promise.all(promises)
+        .then((urls) => {
+          setFormData({
+            ...formData,
+            imageUrls: formData.imageUrls.concat(urls),
+          });
+          setUploading(false);
+          setImageUploadError(false);
+        })
+        .catch((err) => {
+          setUploading(false);
+          setImageUploadError("Image upload error (2 MB max - per image");
         });
-      });
+    } else {
+      setImageUploadError("you can only upload 6 image per listing");
     }
   };
+
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
@@ -32,17 +49,19 @@ export default function CreateListing() {
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
         "state_changed",
-        (snapshot)=>{
-          const progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
-          console.log(`Upload is ${progress}% done`)
-        }
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Upload is ${progress}% done`);
+        },
         (error) => {
           reject(error);
         },
-        () => {getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl)=>{resolve(downloadUrl)
-
-        })
-      }
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+            resolve(downloadUrl);
+          });
+        }
       );
     });
   };
@@ -169,11 +188,20 @@ export default function CreateListing() {
               id="images"
               className="p-3 border border-gray-300 rounded-w-full "
             />
-            <button className=" p-3 text-green-700 border-green-700 rounded uppercase hover: shadow-lg disabled: opacity-80">
-              Upload
+            <button
+              onClick={handleImageSubmit}
+              className=" p-3 text-green-700 border-green-700 rounded uppercase hover: shadow-lg disabled: opacity-80"
+            >
+              {uploading ? "Uploading" : "Upload"}
             </button>
           </div>
-          <button className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-80 disabled:opacity-80">
+          <p className="text-red-700 text:sm">
+            {imageUploadError && imageUploadError}
+          </p>
+          <button
+            disabled={uploading}
+            className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-80 disabled:opacity-80"
+          >
             {" "}
             Create Listing
           </button>
