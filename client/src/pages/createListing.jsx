@@ -6,8 +6,10 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "../../firebase.js";
+import { useSelector } from "react-redux";
 export default function CreateListing() {
   const [files, setFiles] = useState([]);
+  const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     imageUrls: [],
     name: "",
@@ -25,6 +27,10 @@ export default function CreateListing() {
   const [imageUploadError, setImageUploadError] = useState(false);
 
   const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [createSuccess, setCreateSuccess] = useState(false);
+
   console.log(files);
   console.log(formData);
 
@@ -41,6 +47,11 @@ export default function CreateListing() {
           setFormData({
             ...formData,
             imageUrls: formData.imageUrls.concat(urls),
+            //imageUrls: [
+            //"https://media.istockphoto.com/id/2175973016/photo/modern-luxury-home-exterior-at-sunset.webp?a=1&b=1&s=612x612&w=0&k=20&c=B2e-gEujpM7UNHX3uMHqvyh_bHC5sHFYfxf0ldEc6R0=",
+            //"https://media.istockphoto.com/id/2196462912/photo/detail-of-real-estate-agents-hands-handing-over-keys.webp?a=1&b=1&s=612x612&w=0&k=20&c=v2pdUnS7n07w7-GFvztlN6fdy6g0DtIzrW_uetWFsws=",
+            //"https://media.istockphoto.com/id/2148548224/photo/suburban-dallas-housing-development.webp?a=1&b=1&s=612x612&w=0&k=20&c=BtiVh_IPqQfOrPwrDJYCmIc4s1cjcK_ZC2rHtmO1cEI=",
+            //],
           });
           setUploading(false);
           setImageUploadError(false);
@@ -49,6 +60,23 @@ export default function CreateListing() {
           setUploading(false);
           setImageUploadError("Image upload error (2 MB max - per image");
         });
+    } else if (files.length === 0) {
+      console.log("files.length = 0");
+      setUploading(true);
+      setImageUploadError(false);
+      setFormData({
+        ...formData,
+        imageUrls: [
+          "https://media.istockphoto.com/id/2175973016/photo/modern-luxury-home-exterior-at-sunset.webp?a=1&b=1&s=612x612&w=0&k=20&c=B2e-gEujpM7UNHX3uMHqvyh_bHC5sHFYfxf0ldEc6R0=",
+          "https://media.istockphoto.com/id/2196462912/photo/detail-of-real-estate-agents-hands-handing-over-keys.webp?a=1&b=1&s=612x612&w=0&k=20&c=v2pdUnS7n07w7-GFvztlN6fdy6g0DtIzrW_uetWFsws=",
+          "https://media.istockphoto.com/id/2148548224/photo/suburban-dallas-housing-development.webp?a=1&b=1&s=612x612&w=0&k=20&c=BtiVh_IPqQfOrPwrDJYCmIc4s1cjcK_ZC2rHtmO1cEI=",
+        ],
+      });
+      setUploading(false);
+      setImageUploadError(false);
+      setImageUploadError(
+        "Test create new listing with 3 default images - not uploading to firebase storage Url"
+      );
     } else {
       setImageUploadError("You can only upload 6 images/per a listing");
     }
@@ -106,7 +134,32 @@ export default function CreateListing() {
       });
     }
   };
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setError(false);
+      // if (formData.imageUrls.length < 1)
+      //   return setError("You must upload at least 1 image");
+      setLoading(true);
+      setError(false);
+      const res = await fetch("https://localhost:5000/api/listing/create", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
+      });
+      const data = await res.json();
+
+      if (data.successs === false) {
+        setError(data.message);
+      }
+      setLoading(false);
+      setCreateSuccess(true);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
@@ -203,11 +256,12 @@ export default function CreateListing() {
             <input
               type="number"
               id="bedrooms"
-              max="10"
-              min="1"
+              max={10}
+              min={1}
               required
               className="p-3 border rounded-lg border-gray-300"
               value={formData.bedrooms}
+              onChange={handleChange}
             />
             <p> Beds</p>
           </div>
@@ -215,11 +269,12 @@ export default function CreateListing() {
             <input
               type="number"
               id="bathrooms"
-              max="10"
-              min="1"
+              max={10}
+              min={1}
               required
               className="p-3 border rounded-lg border-gray-300"
               value={formData.bathrooms}
+              onChange={handleChange}
             />
             <p> Baths</p>
           </div>
@@ -227,9 +282,12 @@ export default function CreateListing() {
             <input
               type="number"
               id="regularPrice"
+              max={10000000}
+              min={100}
               required
               className="p-3 border rounded-lg border-gray-300"
               value={formData.regularPrice}
+              onChange={handleChange}
             />
             <div className="flex flex-col items-center">
               <p> Regular Price</p>
@@ -240,9 +298,12 @@ export default function CreateListing() {
             <input
               type="number"
               id="discountPrice"
+              max={10000000}
+              min={10}
               required
               className="p-3 border rounded-lg border-gray-300"
               value={formData.discountPrice}
+              onChange={handleChange}
             />
             <div className="flex flex-col items-center">
               <p> Discount Price</p>
@@ -271,6 +332,8 @@ export default function CreateListing() {
               className="p-3 border border-gray-300 rounded-w-full "
             />
             <button
+              type="button"
+              disabled={uploading}
               onClick={handleImageSubmit}
               className=" p-3 text-green-700 border-green-700 rounded uppercase hover: shadow-lg disabled: opacity-80"
             >
@@ -281,12 +344,15 @@ export default function CreateListing() {
             {imageUploadError && imageUploadError}
           </p>
           <button
-            disabled={uploading}
+            disabled={loading || uploading}
             className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-80 disabled:opacity-80"
           >
-            {" "}
-            Create Listing
+            {loading ? "Creating..." : "Create Listing"}
           </button>
+          {error && <p className="text-red-700 text-sm"> {error} </p>}
+          <p className="text-green-700 mt-5">
+            {createSuccess ? " New List created sucessfully!" : ""}
+          </p>
         </div>
       </form>
     </main>
