@@ -7,8 +7,10 @@ import {
 } from "firebase/storage";
 import { app } from "../../firebase.js";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export default function CreateListing() {
   const [files, setFiles] = useState([]);
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -21,7 +23,7 @@ export default function CreateListing() {
     parking: false,
     offer: false,
     furnished: false,
-    regularPrice: 0,
+    regularPrice: 50,
     discountPrice: 0,
   });
   const [imageUploadError, setImageUploadError] = useState(false);
@@ -140,6 +142,8 @@ export default function CreateListing() {
       setError(false);
       // if (formData.imageUrls.length < 1)
       //   return setError("You must upload at least 1 image");
+      if (formData.regularPrice < formData.discountPrice)
+        return setError("Discount Price must be lower than regular Price 1");
       setLoading(true);
       setError(false);
       const res = await fetch("https://localhost:5000/api/listing/create", {
@@ -155,6 +159,7 @@ export default function CreateListing() {
       }
       setLoading(false);
       setCreateSuccess(true);
+      navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -251,6 +256,7 @@ export default function CreateListing() {
             <span>Offer</span>
           </div>
         </div>
+
         <div className="flex flex-wrap gap-6 mt-3">
           <div className="flex items-center gap-2">
             <input
@@ -278,6 +284,7 @@ export default function CreateListing() {
             />
             <p> Baths</p>
           </div>
+
           <div className="flex items-center gap-2">
             <input
               type="number"
@@ -294,22 +301,26 @@ export default function CreateListing() {
               <span className="text-xs">($/ month)</span>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <input
-              type="number"
-              id="discountPrice"
-              max={10000000}
-              min={10}
-              required
-              className="p-3 border rounded-lg border-gray-300"
-              value={formData.discountPrice}
-              onChange={handleChange}
-            />
-            <div className="flex flex-col items-center">
-              <p> Discount Price</p>
-              <span className="text-xs">($/ month)</span>
+          {formData.offer && (
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                id="discountPrice"
+                max={10000000}
+                min={0}
+                required
+                className="p-3 border rounded-lg border-gray-300"
+                value={formData.discountPrice}
+                onChange={handleChange}
+              />
+              <div className="flex flex-col items-center">
+                <p> Discounted Price</p>
+                {formData.type === "rent" && (
+                  <span className="text-xs">($/ month)</span>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div className=" flex flex-col flex-1 gap-4">
           <p className="font-semibold">
