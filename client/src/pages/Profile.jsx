@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -22,6 +23,7 @@ import {
   signOutUserStart,
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
+import { request } from "express";
 
 export default function Profile() {
   const { currentUser, loading, error } = useSelector((state) => state.user);
@@ -182,13 +184,25 @@ export default function Profile() {
   const handleShowListings = async () => {
     try {
       setShowListingsError(false);
-      const res = await fetch(
-        "https://vvkg5d-5000.csb.app/api/user/listings/" + currentUser._id,
-        {
-          credentials: "include",
-          method: "POST",
-        }
-      );
+
+      // const res = await fetch(
+      //   "https://vvkg5d-5000.csb.app/api/user/listings/" + currentUser._id,
+      //   {
+      //     credentials: "include",
+      //   }
+      // );
+      const cookie = request.cookies["acess_token"];
+      console.log("cookie", cookie);
+
+      const res = await axios
+        .get(
+          "https://vvkg5d-5000.csb.app/api/user/listings/" + currentUser._id,
+          {
+            withCredentials: true, // Important for cross-origin requests with cookies
+          }
+        )
+        .then((res) => console.log(res.data))
+        .catch((error) => console.error("Error:", error));
       const data = await res.json();
       if (data.success === false) {
         setShowListingsError(true);
