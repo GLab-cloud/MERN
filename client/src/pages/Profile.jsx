@@ -214,7 +214,7 @@ export default function Profile() {
       //setShowListingsError(false);
       console.log("Error showing listing: false - no error");
     } catch (error) {
-      setShowListingsError(true);
+      setShowListingsError(true); //Error showing listing
     }
   };
   return (
