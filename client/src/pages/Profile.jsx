@@ -194,20 +194,19 @@ export default function Profile() {
       const cookie = request.cookies["acess_token"];
       console.log("cookie", cookie);
 
-      const res = await axios
-        .get(
-          "https://vvkg5d-5000.csb.app/api/user/listings/" + currentUser._id,
-          {
-            withCredentials: true, // Important for cross-origin requests with cookies
+      await axios
+        .get("https://localhost:5000/api/user/listings/" + currentUser._id, {
+          withCredentials: true, // Important for cross-origin requests with cookies
+        })
+        .then((res) => {
+          console.log(res.data);
+          const data = res.json();
+          if (data.success === false) {
+            setShowListingsError(true);
+            return;
           }
-        )
-        .then((res) => console.log(res.data))
+        })
         .catch((error) => console.error("Error:", error));
-      const data = await res.json();
-      if (data.success === false) {
-        setShowListingsError(true);
-        return;
-      }
     } catch (error) {
       setShowListingsError(true);
     }
