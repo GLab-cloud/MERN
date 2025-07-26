@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+//import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -23,7 +23,7 @@ import {
   signOutUserStart,
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
-import { request } from "express";
+//import { request } from "express";
 
 export default function Profile() {
   const { currentUser, loading, error } = useSelector((state) => state.user);
@@ -174,7 +174,7 @@ export default function Profile() {
       if (data.success === false) {
         dispatch(signOutUserFailure(data.message));
       }
-      //dispatch(signOutUserSuccess(data));
+      dispatch(signOutUserSuccess(data));
       navigate("/");
       console.log("currentUser=", currentUser.user);
     } catch (error) {
@@ -185,28 +185,34 @@ export default function Profile() {
     try {
       setShowListingsError(false);
 
-      // const res = await fetch(
-      //   "https://vvkg5d-5000.csb.app/api/user/listings/" + currentUser._id,
-      //   {
-      //     credentials: "include",
-      //   }
-      // );
-      const cookie = request.cookies["acess_token"];
-      console.log("cookie", cookie);
+      const res = await fetch(
+        "https://localhost:5000/api/user/listings/" + currentUser._id,
+        {
+          credentials: "include",
+          method: "GET",
+        }
+      );
 
-      await axios
-        .get("https://localhost:5000/api/user/listings/" + currentUser._id, {
-          withCredentials: true, // Important for cross-origin requests with cookies
-        })
-        .then((res) => {
-          console.log(res.data);
-          const data = res.json();
-          if (data.success === false) {
-            setShowListingsError(true);
-            return;
-          }
-        })
-        .catch((error) => console.error("Error:", error));
+      // await axios
+      //   .get("https://localhost:5000/api/user/listings/" + currentUser._id, {
+      //     withCredentials: true, // Important for cross-origin requests with cookies
+      //   })
+      //   .then((res) => {
+      //     console.log(res.data);
+      //     const data = res.json();
+      //     if (data.success === false) {
+      //       setShowListingsError(true);
+      //       return;
+      //     }
+      //   })
+      //   .catch((error) => console.error("Error:", error));
+      const data = res.json();
+      if (data.success === false) {
+        setShowListingsError(true);
+        return;
+      }
+      //setShowListingsError(false);
+      console.log("Error showing listing: false - no error");
     } catch (error) {
       setShowListingsError(true);
     }
