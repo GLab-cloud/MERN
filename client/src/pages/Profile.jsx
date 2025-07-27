@@ -206,13 +206,15 @@ export default function Profile() {
       //     }
       //   })
       //   .catch((error) => console.error("Error:", error));
-      const data = res.json();
+      const data = await res.json();
       if (data.success === false) {
         setShowListingsError(true);
         return;
       }
       //setShowListingsError(false);
       console.log("Error showing listing: false - no error");
+      setUserListings(data);
+      console.log("listings", userListings);
     } catch (error) {
       setShowListingsError(true); //Error showing listing
     }
@@ -310,6 +312,39 @@ export default function Profile() {
         {" "}
         {showListingsError ? "Error showing listing" : ""}
       </p>
+      {userListings && userListings.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <h1 className="text-center mt-7 text-2xl font-semibold">
+            {" "}
+            Your Listings
+          </h1>
+          {userListings.map((listing) => (
+            <div
+              key={listing._id}
+              className="border rounded-lg flex items-center justify-between p-3 gap-4"
+            >
+              {" "}
+              <Link to={`listing/${listing._id}`}>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt="Listing Cover"
+                  className="h-16 w-16 object-contain rounded-lg"
+                />
+              </Link>
+              <Link
+                className="text-slate-700 font-semibold hover:underline flex-1 truncate"
+                to={`listing/${listing._id}`}
+              >
+                <p>{listing.name}</p>
+              </Link>
+              <div className="flex flex-col items-center">
+                <button className="text-red-700 uppercase">Delete</button>
+                <button className="text-green-700 uppercase">Edit</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
