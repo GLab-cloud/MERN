@@ -15,7 +15,10 @@ export const deleteListing = async (req, res, next) => {
     return next(errorHandler(401, "Listing not found"));
   }
 
-  if (req.user.id !== listing.userRef) {
+  if (req.user._id !== listing.userRef) {
+    console.log(req.user.id);
+    console.log(listing.userRef);
+
     return next(errorHandler(401, "You can delete your own listing"));
   }
   try {
