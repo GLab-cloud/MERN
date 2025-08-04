@@ -37,6 +37,15 @@ export default function UpdateListing() {
     const fetchListing = async () => {
       const listingId = params.listingId;
       console.log(listingId);
+      const res = await fetch(
+        `https://localhost:5000/api/listing/get/${listingId}`
+      );
+      const data = await res.json();
+      if (data.successs === false) {
+        console.log(data.message);
+        return;
+      }
+      setFormData(data);
     };
     fetchListing();
   }, []);
@@ -154,12 +163,15 @@ export default function UpdateListing() {
         return setError("Discount Price must be lower than regular Price 1");
       setLoading(true);
       setError(false);
-      const res = await fetch("https://localhost:5000/api/listing/create", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
-      });
+      const res = await fetch(
+        `https://localhost:5000/api/listing/update/${params.listingId}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...formData, userRef: currentUser._id }),
+        }
+      );
       const data = await res.json();
 
       if (data.successs === false) {
