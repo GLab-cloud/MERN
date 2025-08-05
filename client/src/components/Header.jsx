@@ -14,8 +14,8 @@ export default function Header() {
             src="../src/assets/logo_GLab.png"
             className="rounded-full h-9 w-9 object-cover"
           ></img>
-          <h3 className="logo">GLab&nbsp;</h3>
-          <span className="text-slate-700  ">Real Estate Marketplace</span>
+          <h3 className="logo">GLab</h3>
+          <span className="text-slate-700">Real Estate Marketplace</span>
         </div>
         <form className="bg-slate-100 p-3 rounded-lg flex items-center">
           <input
