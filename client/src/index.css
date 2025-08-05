@@ -1,6 +1,9 @@
-.logo-color {
-  font-weight: 650;
+.logo {
+  font-weight: 700;
   color: aqua;
+  font-family: fantasy;
+  font-style: oblique;
+  font-size: x-large;
 }
 .add:hover {
   background: #f8f4f4 !important;
