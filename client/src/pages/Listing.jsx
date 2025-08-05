@@ -11,28 +11,27 @@ export default function Listing() {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const listingId = params.listingId;
-        //console.log(listingId);
+        setLoading(true);
         const res = await fetch(
-          `https://localhost:5000/api/listing/get/${listingId}`
+          `https://localhost:5000/api/listing/get/${params.listingId}`
         );
         const data = await res.json();
-        if (data.successs === false) {
-          console.log(data.message);
+        if (data.success === false) {
           setError(true);
           setLoading(false);
           return;
         }
-        //setFormData(data);
         setListing(data);
-        console.log(data);
-        console.log(listing);
+        setLoading(false);
+        setError(false);
       } catch (error) {
         setError(true);
         setLoading(false);
       }
     };
     fetchListing();
-  }, []);
-  return <div>{listing ? "Listing page - loading..." : listing.name}</div>;
+  }, [params.listingId]);
+  return (
+    <div>{listing && !loading && !error && <div> {listing.name}</div>}</div>
+  );
 }
