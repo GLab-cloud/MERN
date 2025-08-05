@@ -9,16 +9,14 @@ export default function Header() {
   return (
     <header className="bg-slate-200 shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
-        <h3 className="font-bold text-sm sm:text-xl flex flex-wrap">
+        <div className="font-bold text-sm sm:text-xl flex flex-wrap items-center gap-2">
+          <img
+            src="../src/assets/logo_GLab.png"
+            className="rounded-full h-9 w-9 object-cover"
+          ></img>
           <h3 className="logo">GLab&nbsp;</h3>
-          {/* <img
-            src="../src/assets/logo.png"
-            className="rounded-full h-14 w-14 object-cover"
-          ></img> */}
-          <span className="text-slate-700 items-center">
-            Real Estate Marketplace
-          </span>
-        </h3>
+          <span className="text-slate-700  ">Real Estate Marketplace</span>
+        </div>
         <form className="bg-slate-100 p-3 rounded-lg flex items-center">
           <input
             type="text"
