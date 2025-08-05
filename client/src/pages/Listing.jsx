@@ -26,9 +26,11 @@ export default function Listing() {
   useEffect(() => {
     const fetchListing = async () => {
       try {
+        //setError(false);
         setLoading(true);
+        const listingId = params.listingId;
         const res = await fetch(
-          `https://localhost:5000/api/listing/get/${params.listingId}`
+          `https://localhost:5000/api/listing/get/${listingId}`
         );
         const data = await res.json();
         if (data.success === false) {
@@ -37,17 +39,20 @@ export default function Listing() {
           return;
         }
         setListing(data);
-        console.log(currentUser._id, listing.userRef);
+        //console.log(currentUser._id, listing.userRef);
+        //life circle of this component ->listing maybe null->error=true
         console.log(data);
 
         setLoading(false);
         setError(false);
       } catch (error) {
         setError(true);
+        console.log(error.message);
         setLoading(false);
       }
     };
     fetchListing();
+    //console.log(currentUser._id, listing.userRef);
   }, [params.listingId]); //dependent variable's value changes
 
   return (
