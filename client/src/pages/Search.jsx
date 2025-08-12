@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import ListingItem from "../components/ListingItem";
 export default function Search() {
   const navigate = useNavigate();
   const [sidebardata, setSidebardata] = useState({
@@ -203,8 +203,8 @@ export default function Search() {
             >
               <option value="regularPrice_desc"> Price high to low</option>
               <option value="regularPrice_asc"> Price low to high</option>
-              <option value="created_at_desc"> Latest</option>
-              <option value="created_at_asc"> Oldest</option>
+              <option value="createdAt_desc"> Latest</option>
+              <option value="createdAt_asc"> Oldest</option>
             </select>
           </div>
           <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opcacity-90">
@@ -217,6 +217,21 @@ export default function Search() {
           {" "}
           Listing Results{" "}
         </h1>
+        <div className="p-7 flex flex-wrap gap-4">
+          {!loading && listings.length === 0 && (
+            <p className="text-xl text-slate-700">No listing found!</p>
+          )}
+          {loading && (
+            <p className="text-xl text-slate-700 text-center w-full">
+              Loading...
+            </p>
+          )}
+          {!loading &&
+            listings &&
+            listings.map((listing) => (
+              <ListingItem key={listing._id} listing={listing} />
+            ))}
+        </div>
       </div>
     </div>
   );
