@@ -46,10 +46,13 @@ export default function Search() {
     const fetchListings = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/listing/get?${searchQuery}`, {
-        method: "GET",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `https://localhost:5000/api/listing/get?${searchQuery}`,
+        {
+          method: "GET",
+          //credentials: "include",
+        }
+      );
       const data = await res.json();
       setListings(data);
       setLoading(false);
