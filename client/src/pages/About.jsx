@@ -10,7 +10,8 @@ export default function About() {
       <p className="font-semibold text-center text-lg"> Porfolio: </p>
       <ul class="list-disc text-blue-600 dark:text-sky-400 font-semibold text-center">
         <li className="">
-          Web, Mobile App development: Web - API, E-Commerce, Smart City
+          Web, Mobile App development: Real Estate Marketplace, Web - API,
+          E-Commerce, Smart City,...
         </li>
         <li>Data Science </li>
         <li>AI, Machine Learning </li>
