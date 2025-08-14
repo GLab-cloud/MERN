@@ -81,9 +81,9 @@ export default function Listing() {
               ))
             ) : (
               <img
-                className="w-full h-[430px] flex justify-center mt-2 rounded-lg p-2 object-cover"
+                className="p-3 mt-3 h-[320px] sm:h-[220px] w-full rounded-full hover:scale-105 transition-scale duration-300"
                 src="https://rentapartment.vn/wp-content/uploads/2021/03/Real-estate-la-gi.jpg"
-              />
+              ></img>
             )}
           </Swiper>
           <div className="fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer">
