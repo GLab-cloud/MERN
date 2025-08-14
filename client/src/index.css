@@ -5,6 +5,10 @@
   font-style: oblique;
   font-size: x-large;
 }
+.logo-tech {
+  width: 30px;
+  height: 30px;
+}
 .add:hover {
   background: #f8f4f4 !important;
   cursor: pointer;
