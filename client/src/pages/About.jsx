@@ -19,18 +19,18 @@ export default function About() {
           Software Technology. We be here, based on{" "}
           <span className="text-slate-900 font-semibold">
             {" "}
-            the majority, strong supporting from the Community (Developer,
-            Enterprise, Free, Open Resources,...) and AI{" "}
+            the majority and strong supporting from the Community (Developer,
+            Enterprise, Free - Open Resources,...) and AI{" "}
           </span>{" "}
           to doing GLab's experiments in Software Technology.{" "}
         </p>
         <p className="text-green-800 font-semibold">
           {" "}
-          Our main tasks are: R&D for applying the development of sofware
-          technology to solve problems, projects in real world in many subjects,
-          from Web - API, Web-GIS to Smart City, E-Commerce, ERP, Urban &
-          Environment Management, Real Estate Marketplace, Crowdfunding
-          Marketplace, Game Development...
+          Our core tasks involve R&D in applying software technology to solve
+          real-world problems. This includes projects across various domains
+          like Web, API, Web-GIS, Smart City, Digital Transformation,
+          E-Commerce, ERP, Urban & Environment Management, Real Estate,
+          Crowdfunding, and Game Development...
         </p>
       </div>
       <div className="border-b p-3">
