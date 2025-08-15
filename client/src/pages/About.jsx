@@ -22,7 +22,7 @@ export default function About() {
             the majority and strong supporting from the Community (Developer,
             Enterprise, Free - Open Resources,...) and AI{" "}
           </span>{" "}
-          to doing GLab's experiments in Software Technology.{" "}
+          to doing Free - Open GLab's experiments in Software Technology.{" "}
         </p>
         <p className="text-green-800 font-semibold">
           {" "}
