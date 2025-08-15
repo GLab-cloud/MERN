@@ -5,7 +5,7 @@ export default function About() {
       <div className="border-b p-1 ">
         <p className="logo mb-0">GLab</p>
         <span className="text-lg text-slate-00 mt-0 font-semibold text-center">
-          (Start-up AI R&D Lab){" "}
+          (Start-up AI R&D Lab, for Free - Open GLab's experiments in Software Technology){" "}
         </span>
         <p className="text-green-800 font-semibold">
           {" "}
