@@ -3,35 +3,38 @@ export default function About() {
   return (
     <div className="text-center mt-2 bg-white-200">
       <div className="border-b p-1 ">
-        <p className="logo mb-0">GLab</p>
-        <span className="text-lg text-slate-00 mt-0 font-semibold text-center">
-          (Startup AI R&D Lab, for Free - Open GLab's experiments in Software
-          Technology){" "}
+        <p className="logo text-4xl">GLab</p>
+        <span className="text-slate-700 text-lg font-semibold text-center">
+          (Startup AI - R&D Lab)
         </span>
-        <p className="text-green-800 font-semibold">
+        <br></br>
+        <span className="text-slate-700 font-semibold italic">
+          "for Free & Open experiments in Software Technology"
+        </span>
+        <p className="text-green-800 font-semibold mt-2">
           {" "}
-          We was founded in 2025, by{" "}
-          <span className="text-slate-900 font-semibold">
-            Mr. Dang Tran Trung (GIS Researcher & Developer since 2005).{" "}
+          Founded in 2025, by{" "}
+          <span className="text-slate-900 font-semibold italic">
+            Mr. Dang Tran Trung (GIS Researcher & Developer since 2005){" "}
           </span>{" "}
         </p>
         <p className="text-green-800 font-semibold">
           With more than 20 years interesting in Research & Development (R&D)
           Software Technology. We be here, based on{" "}
-          <span className="text-slate-900 font-semibold">
+          <span className="text-slate-900 font-semibold italic">
             {" "}
             the majority and strong supporting from the Community (Developer,
-            Enterprise, Free - Open Resources,...) and AI{" "}
+            Enterprise, Free & Open Resources,...) and AI{" "}
           </span>{" "}
-          to doing Free - Open GLab's experiments in Software Technology.{" "}
+          to doing Free & Open GLab's experiments in Software Technology.{" "}
         </p>
         <p className="text-green-800 font-semibold">
           {" "}
           Our core tasks involve R&D in applying software technology to solve
           real-world problems. This includes projects across various domains
-          like: Software architecture, Web, API, Web-GIS, Platform, Smart City,
-          IoT, Digital Transformation, Cyber Security E-Commerce, ERP, Urban &
-          Environment Management, Real Estate, Crowdfunding, and Game
+          like: Software architecture, Web Platform, Web-API, Web-GIS, Smart
+          City, IoT, Digital Transformation, Cyber Security, E-Commerce, ERP,
+          Urban & Environment Management, Real Estate, Crowdfunding, and Game
           Development...
         </p>
       </div>
@@ -42,10 +45,10 @@ export default function About() {
         </p>
         <ul class="text-slate-900 justify-center">
           <li className="">
-            <span className="font-semibold">Web, Mobile App:</span> Digital
-            Transformation, Smart City, IoT, E-Commerce, ERP, GIS, Urban &
-            Environment Management, Web - API, Real Estate Marketplace,
-            Crowdfunding Marketplace, Cyber Security...
+            <span className="font-semibold">Web, Mobile App:</span> Web
+            Platform, Web - API, Cyber Security, Digital Transformation, Smart
+            City, IoT, E-Commerce, ERP, GIS, Urban & Environment Management,
+            Real Estate Marketplace, Crowdfunding Marketplace,...
           </li>
           <li>
             <span className="font-semibold">Data Science</span> (Big-Data, Data
@@ -68,7 +71,7 @@ export default function About() {
       <div className="border-b p-3">
         <p className="font-semibold text-center text-lg text-blue-600 dark:text-sky-400 mb-3">
           {" "}
-          Tech Stack{" "}
+          Tech Stacks{" "}
         </p>
         {/* 4 columns */}
         <div className="grid grid-cols-4 gap-2 border-2">
@@ -162,8 +165,8 @@ export default function About() {
           </div>
           <div class="bg-red-200 p-4 gap-1">
             <p>
-              <span className="font-semibold">Database: </span>SQL Server, Mongo
-              DB, Oracle, MySQL, PostgreSQL, PostGIS, GeoServer{" "}
+              <span className="font-semibold">Databases: </span>SQL Server,
+              Mongo DB, Oracle, MySQL, PostgreSQL, PostGIS, GeoServer{" "}
             </p>
             <div className="grid grid-cols-6 p-1 gap-1">
               <img
